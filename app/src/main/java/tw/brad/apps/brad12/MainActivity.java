@@ -21,7 +21,7 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private File sd;
+    private File sd, approot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +57,13 @@ public class MainActivity extends AppCompatActivity {
         sd = Environment.getExternalStorageDirectory();
         Log.v("brad", sd.getAbsolutePath());
 
-        File[] files = sd.listFiles();
-        for (File file : files){
-            Log.v("brad", file.getAbsolutePath());
-        }
+//        File[] files = sd.listFiles();
+//        for (File file : files){
+//            Log.v("brad", file.getAbsolutePath());
+//        }
 
+        approot = new File(sd, "Android/data/" + getPackageName());
+        if (!approot.exists()) approot.mkdirs();
 
     }
 
@@ -110,8 +112,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void test5(View view) {
+        File file1 = new File(approot, "file1.txt");
+        try {
+            FileOutputStream fout = new FileOutputStream(file1);
+            fout.write("Hello, World".getBytes());
+            fout.flush();
+            fout.close();
+            Toast.makeText(this, "Save OK5", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
     }
 
     public void test6(View view) {
+        File file1 = new File(sd, "file1.txt");
+        try {
+            FileOutputStream fout = new FileOutputStream(file1);
+            fout.write("Hello, World".getBytes());
+            fout.flush();
+            fout.close();
+            Toast.makeText(this, "Save OK6", Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            Log.v("brad", e.toString());
+        }
     }
 }

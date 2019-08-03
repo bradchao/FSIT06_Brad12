@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private File sd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,15 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         sp = getSharedPreferences("config", MODE_PRIVATE);
         editor = sp.edit();
-        File sd = Environment.getExternalStorageDirectory();
+        sd = Environment.getExternalStorageDirectory();
         Log.v("brad", sd.getAbsolutePath());
+
+        File[] files = sd.listFiles();
+        for (File file : files){
+            Log.v("brad", file.getAbsolutePath());
+        }
+
+
     }
 
 
@@ -99,5 +107,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    public void test5(View view) {
+    }
+
+    public void test6(View view) {
     }
 }
